@@ -1,38 +1,23 @@
-let canvas = document.getElementById("canvas");
-let ctx = canvas.getContext("2d");
-
-let ball = {
-    x: 100,
-    y: 100,
-    vx: 25,
-    vy: 20,
-    radius: 25,
-    color: "#2e7d32",
-    draw: function() {
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2, true);
-        ctx.fillStyle = this.color;
-        ctx.fill();
-    }
-};
-
-function update() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    requestAnimationFrame(update);
-    ball.x += ball.vx;
-    ball.y += ball.vy;
-    if (ball.y + ball.vy > canvas.height || ball.y + ball.vy < 0) {
-        ball.vy *= -1;
-    }
-    if (ball.x + ball.vx < canvas.width || ball.x + ball.vx < 0) {
-        ball.vx *= 1.1;
-    };
-
-    document.getElementById("faster").onclick = function() {
-        ball.vx *= 1.1;
-    };
-
-    document.getElementbyId("slower").onclick = function() {
-        ball.vx *=0.9;
-    };
+const gameArea = {
+    canvas: document.createElement('canvas'),
+    frames: 0,
+    start: function() {
+        this.canvas.width = 450;
+        this.canvas.height = 270;
+        this.context = this.canvas.getContext('2d');
+        document.body.insertBefore(this.canvas, document.body.childNodes[0]);
+        this.interval = setInterval(updateGameArea, 20); // permite que o jogo pare mas faz update
+    },
+    clear: function() {
+        this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    },
+    stop: function() {
+        clearInterval(this.interval);
+    },
+    score: function() {
+        const points= Math.floor(this.frames/5);
+        this.context.font= '15px serif';
+        this.context.fillStyle = 'black';
+        this.context.fillText(`score:${points}`, 350, 50)
+    },
 }
