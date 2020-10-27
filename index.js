@@ -1,11 +1,14 @@
+let currentGame;
+let currentPlayer;
+let ballGreen;
+let ballBlue;
+let ballRed;
 let canvas = document.getElementById("canvas");
 let ctx = canvas.getContext("2d");
-let ballGreen = new Ball(100, 100, 20, 15, "green");
-let ballBlue = new Ball(50, 50, 30, 20, "blue");
-let ballRed = new Ball(300, 10, 5, 10, "red");
 
-canvas.style.display = 'none'
-
+canvas.style.display = 'none';
+//let currentGame = new Game();
+//let currentPlayer = new Player();
 
 document.getElementById('start').onclick = () => {
 startGame()
@@ -21,46 +24,90 @@ function startGame() {
     canvas.style.display = 'block';
     currentGame = new Game();
     currentPlayer = new Player();
+    ballGreen = new Ball(250, 50, 5, 5, "green");
+    ballBlue = new Ball(500, 70, 5, 15, "blue");
+    ballRed = new Ball(100, 10, 5, 10, "red");
+
     currentGame.player = currentPlayer;
+    currentGame.ballGreen = ballGreen;
+    currentGame.ballBlue = ballBlue;
+    currentGame.ballRed = ballRed;
+
+    currentGame.obstacles.push(currentGame.ballGreen, currentGame.ballBlue, currentGame.ballRed)
     update()
+    
 }
 
+function detectCollision(obstacle) {
+
+        if (currentGame.player.x + currentGame.player.width > obstacle.x &&
+            currentGame.player.x < obstacle.x + obstacle.width &&
+            currentGame.player.y + currentGame.player.height > obstacle.y &&
+            currentGame.player.y < obstacle.y + obstacle.height) {
+                console.log('collision')
+                return true } else {
+                    return false
+                }
+             
+}
+let frames = 0;
 function update() {
+
+    document.getElementById('score').innerHTML = currentGame.score
+
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     currentGame.player.drawPlayer()
 
+    currentGame.ballGreen.draw();
+    currentGame.ballBlue.draw();
+    currentGame.ballRed.draw();
+
+    currentGame.ballGreen.updateBalls();
+    currentGame.ballBlue.updateBalls();
+    currentGame.ballRed.updateBalls();
+
+frames++
+if(frames % 40 === 1) {
+    currentGame.score++
+}
+
+
+ currentGame.obstacles.forEach(obstacle => {
+    obstacle.y += 1;
+console.log(obstacle.y)
+
+    if (detectCollision(obstacle)) {
+        alert('Game Over')
+        restart()
+    }
+});
+
     requestAnimationFrame(update);
-   
-    ballGreen.draw();
+}
+    
+function restart() {
+    highScore()
+    currentGame.player = {};
+    currentGame.ballGreen = {}
+    currentGame.ballBlue = {}
+    currentGame.ballRed = {}
+    currentGame.obstacles = [];
+    currentGame.balls = [];
+    currentGame.score = 0;
+    document.getElementById('score').innerHTML = currentGame.score;
+    canvas.style.display = 'none';
+}
 
-    ballGreen.x += ballGreen.vx;
-    ballGreen.y += ballGreen.vy;
-    if (ballGreen.y + ballGreen.vy > canvas.height || ballGreen.y + ballGreen.vy < 0) {
-        ballGreen.vy *= -1;
-    }
-    if (ballGreen.x + ballGreen.vx > canvas.width || ballGreen.x + ballGreen.vx < 0) {
-        ballGreen.vx *= -1;
+function highScore() {
+
+    let currentScore = currentGame.score;
+    let highScore = localStorage.getItem('HighScore');
+
+    if(currentScore > highScore) {
+        localStorage.HighScore = currentScore;
     }
 
-    ballBlue.draw();
-  
-    ballBlue.x += ballBlue.vx;
-    ballBlue.y += ballBlue.vy;
-    if (ballBlue.y + ballBlue.vy > canvas.height || ballBlue.y + ballBlue.vy < 0) {
-        ballBlue.vy *= -1;
-    }
-    if (ballBlue.x + ballBlue.vx > canvas.width || ballBlue.x + ballBlue.vx < 0) {
-        ballBlue.vx *= -1;
-    }
-
-    ballRed.draw();
-   
-    ballRed.x += ballRed.vx;
-    ballRed.y += ballRed.vy;
-    if (ballRed.y + ballRed.vy > canvas.height || ballRed.y + ballRed.vy < 0) {
-        ballRed.vy *= -1;
-    }
-    if (ballRed.x + ballRed.vx > canvas.width || ballRed.x + ballRed.vx < 0) {
-        ballRed.vx *= -1;
-    }
+    let newHighScore = localStorage.getItem('HighScore');
+    console.log(newHighScore)
+    document.getElementById('high-score').innerHTML = newHighScore;
 }
