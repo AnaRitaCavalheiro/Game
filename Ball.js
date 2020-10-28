@@ -5,8 +5,8 @@ class Ball {
         this.vx = vx;//20,
         this.vy = vy;//15,
         this.radius = 25,
-        this.width = 50;
-        this.height = 50;
+        this.width = 40;
+        this.height = 40;
         this.color = color;//"#2e7d32"
         this.img = './images/pumpkin.png'
     }

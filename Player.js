@@ -1,7 +1,7 @@
 class Player {
     constructor() {
-        this.width = 50;
-        this.height = 50;
+        this.width = 40;
+        this.height = 40;
         this.x = 350;
         this.y = 50;
         this.imageLeft = './images/ghost.png';
@@ -32,21 +32,31 @@ class Player {
             //direita
             case 39:
                 this.direction = 'right'
-                this.x += 20;
+                if (this.x + this.width < canvas.width) {
+                 this.x += 20;   
+                }
+                
                 break;
                 //esquerda
             case 37:
                 this.direction = 'left'
-                this.x -= 20;
+                if( this.x > 0) {
+                    this.x -= 20;
+                }
                 break;
             //cima
             case 38:
-                this.y -= 20;
+                if (this.y < canvas.height && this.y > 0){
+                 this.y -= 20;   
+                }
                 break;
             //baixo
             case 40:
-                this.y += 20;
+                if(this.y + this.height > 0 && this.y + this.height < canvas.height) {
+                this.y += 20;    
+                }      
             break;   
         }
     }
+
 }

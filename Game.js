@@ -6,6 +6,6 @@ class Game {
         this.ballRed = {}
         this.obstacles = [];
         this.balls = [];
-        this.score = 0
+        this.score = 0;
     }
 }
