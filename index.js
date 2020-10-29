@@ -6,6 +6,7 @@ let ballRed;
 let canvas = document.getElementById("canvas");
 let ctx = canvas.getContext("2d");
 let scoreDiv = document.getElementById('score-div')
+let isRunning = false;
 
 canvas.style.display = 'none';
 scoreDiv.style.display = 'none';
@@ -26,6 +27,7 @@ window.onkeydown = e => {
 }
 
 function startGame() {
+    isRunning = true;
     canvas.style.display = 'block';
     scoreDiv.style.display = 'inline';
     startWrapper.style.display = 'none';
@@ -88,15 +90,19 @@ speedUp();
     obstacle.y += 1;
 
     if (detectCollision(obstacle)) {
+
         alert('Game Over')
         restart()
     }
 });
-
-    requestAnimationFrame(update);
+    if(isRunning) {
+        requestAnimationFrame(update);
+    }
+    
 }
     
 function restart() {
+    isRunning = false
     highScore()
     currentGame.player = {};
     currentGame.ballGreen = {}
