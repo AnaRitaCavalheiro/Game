@@ -13,6 +13,7 @@ scoreDiv.style.display = 'none';
 //let currentPlayer = new Player();
 
 let startBtn = document.getElementById('start');
+let startWrapper = document.getElementById('btn-wrapper');
 
 startBtn.onclick = () => {
 startGame()
@@ -27,7 +28,7 @@ window.onkeydown = e => {
 function startGame() {
     canvas.style.display = 'block';
     scoreDiv.style.display = 'inline';
-    startBtn.style.display = 'none';
+    startWrapper.style.display = 'none';
     currentGame = new Game();
     currentPlayer = new Player();
     ballGreen = new Ball(250, 50, 3, 7, "green");
@@ -106,7 +107,7 @@ function restart() {
     currentGame.score = 0;
     document.getElementById('score').innerHTML = currentGame.score;
     canvas.style.display = 'none';
-    startBtn.style.display = 'block';
+    startWrapper.style.display = 'block';
     scoreDiv.style.display = 'none';
 }
 

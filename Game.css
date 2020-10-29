@@ -1,3 +1,10 @@
+@import url("https://fonts.googleapis.com/css2?family=Frijole&display=swap");
+
+button,
+html {
+  font-family: "Frijole", cursive !important;
+}
+
 #canvas {
   border: 5px purple solid;
   background-image: url("./images/moonlight.png");
@@ -14,11 +21,25 @@ body {
   background-color: black;
   color: white;
 }
+
+.btn {
+  padding-top: 250px;
+  margin: 0 auto;
+  padding-left: 450px;
+}
 #start {
   background-color: purple;
   color: white;
   padding: 15px 32px;
+  margin-top: 300px;
   text-align: center;
-  display: inline-flex;
-  font-size: 16px;
+  justify-content: center;
+  align-items: center;
+  font-size: 150px;
+  margin: auto;
+}
+
+#score-div {
+  display: flex;
+  justify-content: flex-start;
 }

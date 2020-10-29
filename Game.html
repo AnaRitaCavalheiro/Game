@@ -4,19 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="Game.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Frijole&display=swap" rel="stylesheet"> 
     <title>Document</title>
+
 </head>
 <body>
-    
     <canvas id="canvas" height="600" width="700">
         <img src="images/moonlight.png" alt="moonlight" width="700" height="600">
     </canvas>
-<button type="button" id="start">Start</button>
-    <div class= "upper-section" >
-        <div id="score-div">
+ <div class="btn" id="btn-wrapper">
+     <button type="button" id="start">Start</button>
+ </div>
+<div id="score-div">
             <p>High Score: <span id= "high-score"></span> </p>
             <p>Score: <span id="score"></span> </p>
 </div>
+
 </div>
     
     <script src="Player.js"></script>
