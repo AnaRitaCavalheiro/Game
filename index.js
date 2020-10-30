@@ -83,14 +83,13 @@ if(frames % 40 === 1) {
     currentGame.score++
 
 }
-
 speedUp();
 
  currentGame.obstacles.forEach(obstacle => {
     obstacle.y += 1;
 
     if (detectCollision(obstacle)) {
-
+        isRunning = false
         alert('Game Over')
         restart()
     }
@@ -102,7 +101,6 @@ speedUp();
 }
     
 function restart() {
-    isRunning = false
     highScore()
     currentGame.player = {};
     currentGame.ballGreen = {}
